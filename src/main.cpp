@@ -27,7 +27,8 @@ int main(int argc, char **argv) {
     }
     INFO("ROM loaded!");
 
-    Platform platform{"Chip8", WINDOW_WIDTH, WINDOW_HEIGHT, sizeof(chip8.display[0]) * 64};
+    Platform platform{"Chip8", WINDOW_WIDTH, WINDOW_HEIGHT,
+                      sizeof(chip8.display[0]) * WINDOW_WIDTH};
     INFO("Platform initialised!");
 
     bool isRunning = true;
