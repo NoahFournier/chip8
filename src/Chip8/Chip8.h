@@ -29,8 +29,6 @@ struct Chip8 {
     std::mt19937 rng;
     std::uniform_int_distribution<uint8_t> random;
 
-    std::vector<uint16_t> errorCodes{};
-
 private:
 
     void DecodeFailed(uint16_t opcode);

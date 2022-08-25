@@ -52,11 +52,6 @@ int main(int argc, char **argv) {
         }
     }
     INFO("Quitting...");
-    std::stringstream codes;
-    for (const auto& opcode : chip8.errorCodes) {
-        codes << fmt::format("{:X} ", opcode);
-    }
-    DEBUG("Failed Opcodes: " + codes.str());
 
     return 0;
 }

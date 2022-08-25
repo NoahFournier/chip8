@@ -173,6 +173,7 @@ void Chip8::Execute(uint16_t opcode) {
                 default:
                     DecodeFailed(opcode);
             }
+            break;
         default:
             DecodeFailed(opcode);
     }
@@ -180,7 +181,6 @@ void Chip8::Execute(uint16_t opcode) {
 
 void Chip8::DecodeFailed(uint16_t opcode) {
     WARN("Opcode cannot be decoded: " + fmt::format("{:X}", opcode));
-    errorCodes.push_back(opcode);
 }
 
 void Chip8::Op_00E0() {
