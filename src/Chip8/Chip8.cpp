@@ -348,12 +348,12 @@ void Chip8::Op_FX18(uint16_t opcode) {
 
 void Chip8::Op_FX1E(uint16_t opcode) {
     // Set I += VX
-    // TODO
+    index += registers[(opcode & 0x0F00u) >> 8];
 }
 
 void Chip8::Op_FX0A(uint16_t opcode) {
     // Stop executing instructions and wait for key loop
-    // TODO
+    // TODO - Input handling
 }
 
 void Chip8::Op_FX29(uint16_t opcode) {
