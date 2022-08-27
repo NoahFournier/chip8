@@ -358,22 +358,30 @@ void Chip8::Op_FX0A(uint16_t opcode) {
 
 void Chip8::Op_FX29(uint16_t opcode) {
     // Set I to the address of the hex character in VX
-    // TODO
+    index = (registers[(opcode & 0x0F00u) >> 8] & 0x0F) + FONT_START_ADDRESS;
 }
 
 void Chip8::Op_FX33(uint16_t opcode) {
     // Takes the number in VX and converts it to three decimal digits
-    // TODO
+    uint8_t value = registers[(opcode & 0x0F00u) >> 8];
+    for (int i = 2; i >= 0; --i) {
+        memory[index + i] = value % 10;
+        value /= 10;
+    }
 }
 
 void Chip8::Op_FX55(uint16_t opcode) {
     // Stores registers V0 thorugh VX in memory starting at I
-    // TODO
+    for (unsigned int i = 0; i <= (opcode & 0x0F00u) >> 8; ++i) {
+        memory[index + i] = registers[i];
+    }
 }
 
 void Chip8::Op_FX65(uint16_t opcode) {
     // Reads registers V0 through VX from memory starting at I
-    // TODO
+    for (unsigned int i = 0; i <= (opcode & 0x0F00u) >> 8; ++i) {
+        registers[i]= memory[index + i];
+    }
 }
 
 
