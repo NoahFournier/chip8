@@ -141,6 +141,18 @@ void Chip8::Execute(uint16_t opcode) {
         case 0xD:
             Op_DXYN(opcode);
             break;
+        case 0xE:
+            switch (opcode & 0x00FFu) {
+                case 0x9E:
+                    Op_EX9E(opcode);
+                    break;
+                case 0xA1:
+                    Op_EXA1(opcode);
+                    break;
+                default:
+                    DecodeFailed(opcode);
+            }
+            break;
         case 0xF:
             switch (opcode & 0x00FFu) {
                 case 0x07:
