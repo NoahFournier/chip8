@@ -14,7 +14,9 @@ public:
 
     ~Platform();
 
-    bool HandleInput() const;
+    unsigned int videoPitch;
+
+    bool HandleInput(uint8_t *keypad) const;
 
     void Draw(const uint32_t *display);
 
@@ -23,7 +25,6 @@ private:
     SDL_Renderer *renderer;
     SDL_Texture *texture;
 
-    unsigned int videoPitch;
 };
 
 

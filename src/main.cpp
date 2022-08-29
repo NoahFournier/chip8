@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     INFO("Running...");
     while (isRunning) {
         // for now, ignore keyboard input
-        isRunning = platform.HandleInput();
+        isRunning = platform.HandleInput(chip8.keypad);
 
         // wait for timer
         auto now = std::chrono::high_resolution_clock::now();
