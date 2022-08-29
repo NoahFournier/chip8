@@ -25,6 +25,7 @@ struct Chip8 {
     uint8_t sp{};
     uint16_t stack[16]{};
     uint32_t display[64 * 32]{};
+    uint8_t keypad[16]{};
 
     std::mt19937 rng;
     std::uniform_int_distribution<uint8_t> random;

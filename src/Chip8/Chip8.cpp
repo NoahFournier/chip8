@@ -307,7 +307,7 @@ void Chip8::Op_8XYE(uint16_t opcode) {
     // Shift VX one bit to the left
 
     // Set VF to the bit that will be shifted out
-    registers[0xF] = (registers[(opcode & 0x0F00) >> 8] & 0x80u) >> 8;
+    registers[0xF] = (registers[(opcode & 0x0F00) >> 8] & 0x80u) >> 7;
 
     registers[(opcode & 0x0F00) >> 8] <<= 1;
 }
@@ -335,12 +335,14 @@ void Chip8::Op_CXNN(uint16_t opcode) {
 
 void Chip8::Op_EX9E(uint16_t opcode) {
     // Skips an instruction if the key corresponding to the value in VX is pressed
-    // TODO - Input handling
+    pc = keypad[registers[(opcode & 0x0F00u) >> 8]] == 1 ?
+        pc + 2 : pc;
 }
 
 void Chip8::Op_EXA1(uint16_t opcode) {
     // Skips an instruction if the key corresponding to the value in VX is not pressed
-    // TODO - Input handling
+    pc = keypad[registers[(opcode & 0x0F00u) >> 8]] == 1 ?
+        pc : pc + 2;
 }
 
 void Chip8::Op_FX07(uint16_t opcode) {
@@ -365,7 +367,13 @@ void Chip8::Op_FX1E(uint16_t opcode) {
 
 void Chip8::Op_FX0A(uint16_t opcode) {
     // Stop executing instructions and wait for key loop
-    // TODO - Input handling
+    for (unsigned int i = 0; i < 16; ++i) {
+        if (keypad[i] == 1) {
+            registers[(opcode & 0x0F00u) >> 8] = i;
+            return;
+        }
+    }
+    pc -= 2;
 }
 
 void Chip8::Op_FX29(uint16_t opcode) {
