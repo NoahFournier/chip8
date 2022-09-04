@@ -54,6 +54,12 @@ uint16_t Chip8::Fetch() {
     // Increment PC
     pc += 2;
 
+    if (soundTimer > 0)
+        soundTimer--;
+
+    if (delayTimer > 0)
+        delayTimer--;
+
     return opcode;
 }
 
@@ -378,7 +384,7 @@ void Chip8::Op_FX0A(uint16_t opcode) {
 
 void Chip8::Op_FX29(uint16_t opcode) {
     // Set I to the address of the hex character in VX
-    index = (registers[(opcode & 0x0F00u) >> 8] & 0x0F) + FONT_START_ADDRESS;
+    index = (5 * registers[(opcode & 0x0F00u) >> 8u]) + FONT_START_ADDRESS;
 }
 
 void Chip8::Op_FX33(uint16_t opcode) {
